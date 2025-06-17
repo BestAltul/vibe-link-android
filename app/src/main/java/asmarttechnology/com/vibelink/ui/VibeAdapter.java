@@ -1,5 +1,7 @@
 package asmarttechnology.com.vibelink.ui;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import asmarttechnology.com.vibelink.R;
+import asmarttechnology.com.vibelink.VibeDetailsActivity;
 
 public class VibeAdapter extends RecyclerView.Adapter<VibeAdapter.VibeViewHolder> {
 
@@ -33,6 +36,14 @@ public class VibeAdapter extends RecyclerView.Adapter<VibeAdapter.VibeViewHolder
         VibeItem item = vibeList.get(position);
         holder.title.setText(item.getTitle());
         holder.description.setText(item.getDescription());
+        
+        holder.itemView.setOnClickListener(v->{
+            Context context = v.getContext();
+            Intent intent = new Intent(context, VibeDetailsActivity.class);
+            intent.putExtra("title",item.getTitle());
+            intent.putExtra("description", item.getDescription());
+            context.startActivity(intent);
+        });
     }
 
     @Override
