@@ -4,11 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class VibeDetailsActivity extends AppCompatActivity {
+
+    private List<String> labels;
+    private List<String> values;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,21 +24,34 @@ public class VibeDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_vibe_details);
 
 
+        LinearLayout container = findViewById(R.id.vibeFieldsContainer);
+        labels = getIntent().getStringArrayListExtra("labels");
+        values = getIntent().getStringArrayListExtra("values");
+
+        if (labels != null && values != null) {
+            for (int i = 0; i < labels.size(); i++) {
+                TextView fieldView = new TextView(this);
+                fieldView.setText(labels.get(i) + ": " + values.get(i));
+                fieldView.setTextSize(16);
+                container.addView(fieldView);
+            }
+        }
+
         Button backButton = findViewById(R.id.backButton);
-        backButton.setOnClickListener(v->finish());
+        backButton.setOnClickListener(v -> finish());
 
-        TextView titleView = findViewById(R.id.vibeDetailTitle);
-        TextView descView = findViewById(R.id.vibeDetailDescription);
-        ImageView iconView = findViewById(R.id.vibeDetailIcon);
+        Button editButton = findViewById(R.id.editButton);
+        editButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, VibeBuilderActivity.class);
 
-        Intent intent = getIntent();
-        String title = intent.getStringExtra("title");
-        String description = intent.getStringExtra("description");
-        int iconRes = intent.getIntExtra("icon", R.drawable.ic_person);
+            if (labels != null && values != null) {
+                intent.putStringArrayListExtra("labels", new ArrayList<>(labels));
+                intent.putStringArrayListExtra("values", new ArrayList<>(values));
+            }
 
-        titleView.setText(title);
-        descView.setText(description);
-        iconView.setImageResource(iconRes);
+            startActivity(intent);
+        });
+
+
     }
-
 }
