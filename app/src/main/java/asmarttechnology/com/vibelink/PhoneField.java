@@ -1,6 +1,7 @@
 package asmarttechnology.com.vibelink;
 
 import android.content.Context;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,18 +24,20 @@ public class PhoneField extends VibeField{
 
     @Override
     public String getValue() {
-        return phone;
+        return input != null? input.getText().toString():"";
     }
 
     @Override
     public View renderView(Context context) {
         input = new EditText(context);
+
         input.setHint(getLabel());
         input.setInputType(InputType.TYPE_CLASS_PHONE);
         input.setLayoutParams(new ViewGroup.LayoutParams(
                 android.view.ViewGroup.LayoutParams.MATCH_PARENT,
                 android.view.ViewGroup.LayoutParams.WRAP_CONTENT
         ));
+
         return input;
     }
 }

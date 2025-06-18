@@ -5,6 +5,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.text.InputType;
 import android.view.View;
+import android.widget.Toast;
+
+import androidx.cardview.widget.CardView;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +18,7 @@ public class EmailField extends VibeField{
 
     private String email;
     private EditText input;
+    private View renderView;
 
     @Override
     public String getType() {
@@ -23,11 +27,12 @@ public class EmailField extends VibeField{
 
     @Override
     public String getValue() {
-        return email;
+        return input != null? input.getText().toString():"";
     }
 
     @Override
     public View renderView(Context context) {
+        if(renderView==null){
         input = new EditText(context);
         input.setHint(getLabel());
         input.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -35,6 +40,24 @@ public class EmailField extends VibeField{
               android.view.ViewGroup.LayoutParams.MATCH_PARENT,
               android.view.ViewGroup.LayoutParams.WRAP_CONTENT
         ));
-    return input;
+
+        CardView card = new CardView(context);
+        card.setCardElevation(8);
+        card.setRadius(24);
+        card.setUseCompatPadding(true);
+        card.setContentPadding(16,16,16,16);
+        card.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        ));
+        card.addView(input);
+
+        card.setOnClickListener(v->{
+            Toast.makeText(context,"Holding for action", Toast.LENGTH_SHORT).show();
+        });
+            renderView=card;
+        }
+
+    return renderView;
     }
 }

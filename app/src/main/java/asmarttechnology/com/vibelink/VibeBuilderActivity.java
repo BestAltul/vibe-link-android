@@ -38,9 +38,6 @@ public class VibeBuilderActivity extends AppCompatActivity {
         ArrayList<String> incomingLabels = intent.getStringArrayListExtra("labels");
         ArrayList<String> incomingValues = intent.getStringArrayListExtra("values");
 
-        Toast.makeText(this, "Constructor открыт", Toast.LENGTH_SHORT).show();
-
-
         if (incomingLabels != null && incomingValues != null) {
             for (int i = 0; i < incomingLabels.size(); i++) {
                 PhoneField field = new PhoneField();
@@ -58,15 +55,26 @@ public class VibeBuilderActivity extends AppCompatActivity {
     }
 
     private void showFieldTypeDialog() {
-        String[] options = {"Phone"};
+        String[] options = {"Phone","Email","Other"};
 
         new AlertDialog.Builder(this)
                 .setTitle("Choose the field")
                 .setItems(options, (dialog, which) -> {
                     VibeField field = null;
 
-                    if (which == 0) {
-                        field = new PhoneField();
+                    switch(which){
+
+                        case 0:
+                            field = new PhoneField();
+                            break;
+                        case 1:
+                            field = new EmailField();
+                            break;
+                        case 2:
+                            field = new LinkField();
+                            break;
+                        default:
+                            Toast.makeText(this,"Unknown field type",Toast.LENGTH_SHORT).show();
                     }
 
                     if (field != null) {
@@ -82,7 +90,7 @@ public class VibeBuilderActivity extends AppCompatActivity {
         ArrayList<String> values = new ArrayList<>();
 
         for (VibeField field : vibeFields) {
-            labels.add(field.getLabel());
+            labels.add(field.getType());
             values.add(field.getValue());
         }
 
