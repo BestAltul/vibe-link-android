@@ -90,7 +90,7 @@ public class VibeBuilderActivity extends AppCompatActivity {
         ArrayList<String> values = new ArrayList<>();
 
         for (VibeField field : vibeFields) {
-            labels.add(field.getType());
+            labels.add(field.getLabel());
             values.add(field.getValue());
         }
 

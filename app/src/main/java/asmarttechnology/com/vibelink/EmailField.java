@@ -20,6 +20,10 @@ public class EmailField extends VibeField{
     private EditText input;
     private View renderView;
 
+    public EmailField(){
+        setLabel("email");
+    }
+
     @Override
     public String getType() {
         return "email";
@@ -35,6 +39,7 @@ public class EmailField extends VibeField{
         if(renderView==null){
         input = new EditText(context);
         input.setHint(getLabel());
+        input.setBackground(null);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         input.setLayoutParams(new ViewGroup.LayoutParams(
               android.view.ViewGroup.LayoutParams.MATCH_PARENT,

@@ -1,6 +1,7 @@
 package asmarttechnology.com.vibelink;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -33,6 +34,7 @@ public class VibeDetailsActivity extends AppCompatActivity {
                 TextView fieldView = new TextView(this);
                 fieldView.setText(labels.get(i) + ": " + values.get(i));
                 fieldView.setTextSize(16);
+                fieldView.setPaintFlags(fieldView.getPaintFlags() & ~Paint.UNDERLINE_TEXT_FLAG);
                 container.addView(fieldView);
             }
         }

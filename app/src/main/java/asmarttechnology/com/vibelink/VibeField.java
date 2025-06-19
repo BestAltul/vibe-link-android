@@ -18,6 +18,10 @@ public abstract class VibeField {
 
     private  Long accountVibeId;
 
+    public final String getLabel(){
+        return this.label;
+    }
+
     public abstract String getType();
     public abstract String getValue();
 

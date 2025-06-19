@@ -17,6 +17,10 @@ public class PhoneField extends VibeField{
     private String phone;
     private EditText input;
 
+    public PhoneField(){
+        setLabel("phone");
+    }
+
     @Override
     public String getType() {
         return "phone";
@@ -33,6 +37,7 @@ public class PhoneField extends VibeField{
 
         input.setHint(getLabel());
         input.setInputType(InputType.TYPE_CLASS_PHONE);
+        input.setBackground(null);
         input.setLayoutParams(new ViewGroup.LayoutParams(
                 android.view.ViewGroup.LayoutParams.MATCH_PARENT,
                 android.view.ViewGroup.LayoutParams.WRAP_CONTENT

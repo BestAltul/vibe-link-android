@@ -23,13 +23,14 @@ public class LinkField extends VibeField{
 
     @Override
     public String getValue() {
-        return url;
+        return input != null? input.getText().toString():"";
     }
 
     @Override
     public View renderView(Context context) {
         input = new EditText(context);
         input.setHint(getLabel());
+        input.setBackground(null);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         input.setLayoutParams(new ViewGroup.LayoutParams(
                 android.view.ViewGroup.LayoutParams.MATCH_PARENT,
